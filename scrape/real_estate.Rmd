@@ -37,6 +37,8 @@ library(stringr)
 
 # Home prices
 
+This is checking to make sure you are allowed to scrape the data. TRUE = ok
+
 ```{r}
 rtxt <- robotstxt::robotstxt("https://www.realtor.com/")
 rtxt$check(paths = c("/","api/"), bot = "*")
@@ -45,7 +47,7 @@ rtxt$check(paths = c("/","api/"), bot = "*")
 A TRUE value means it's ok to crawl through this folder. 
 You can also check a URL here: https://technicalseo.com/tools/robots-txt/ 
 
-Read all the HTML from that page into an object in R. 
+Read all the HTML from that page into an object in R. (this is reading in the html version of the website you are looking at)
 ```{r}
 chico <- read_html("https://www.realtor.com/realestateandhomes-search/Chico_CA?cid=prt_bestplaces_ppmenu_text")
 ```
@@ -55,6 +57,11 @@ Find html node name for the thing I want to get
 ![](div_class.PNG)
 
 ![](selectorgadget.PNG)
+
+Example: get just the house price; if you put in the node after html_nodes it pull out all the data and adding html_text will remove all of the crap so that you only see the data inside the node.
+```{r}
+chico %>% html_nodes(".data-price") %>% html_text()
+```
 
 
 extract details from card. convert to text, squish out whitespace
