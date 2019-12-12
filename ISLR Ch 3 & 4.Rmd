@@ -1,0 +1,102 @@
+---
+title: "ISLR Ch 3 & 4"
+author: "Kathleen Johnson"
+date: "12/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rlang)
+library(tidyverse)
+
+```
+
+
+```{r}
+
+boston <- MASS::Boston
+```
+
+
+ Is there a non-linear relationship between crime rate (y) variable name "crim", and average age of houses (x) variable name "age"?
+ 
+```{r}
+ggplot(data = boston) + 
+  geom_point(mapping = aes(x = age, y = crim))
+```
+ 
+```{r}
+summary(boston$age)
+```
+ 
+ Checking to see if I can even make the example work:
+```{r}
+lm.fit=lm(medv∼lstat , data=boston)
+
+```
+
+
+```{r}
+lm(formula = medv ∼ lstat, data=boston)
+```
+ 
+```{r}
+summary (lm.fit)
+```
+ 
+ 
+ Now to look at crime and age of house: 
+```{r}
+lm.fit=lm(crim∼age , data=boston)
+```
+ 
+```{r}
+lm(formula = crim ∼ age, data=boston)
+```
+ 
+```{r}
+summary (lm.fit)
+```
+ 
+```{r}
+coef(lm.fit)
+```
+ 
+ Obtain confidence interval for the coefficient estimates
+```{r}
+confint (lm.fit)
+```
+ 
+```{r}
+summary(boston$age)
+```
+
+So the 95% confidence interval associated with age of the house value of 3.25 years is (2.54, 3.96).
+ 
+```{r}
+predict (lm.fit ,data = boston(age=c(5,50 ,100)),
+interval ="confidence")
+```
+ 
+The 95% prediction interval associated with age of the house value of 3.25 years is (-12.59, 19.09).
+ 
+```{r}
+predict (lm.fit ,data = boston(age=c(5,50 ,100)),
+interval ="prediction")
+```
+```{r}
+predict (lm.fit ,data.frame(age=c(50)),
+interval ="prediction")
+```
+
+When age of the house is 50 the predicted crime rate is 1.61 (-14.24, 17.46).
+```{r}
+predict (lm.fit ,data.frame(age=c(50)),
+interval ="confidence")
+```
+
+ 
