@@ -99,4 +99,12 @@ predict (lm.fit ,data.frame(age=c(50)),
 interval ="confidence")
 ```
 
+```{r}
+boston$age2 <- boston$age^2
+```
+
+```{r}
+summary(boston$age2)
+```
+
  
